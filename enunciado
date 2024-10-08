@@ -1,0 +1,135 @@
+Practica de colecciones y estructura de control
+1. Extraer token
+Escribe una función en Python que, dado un string que representa una expresión matemática (por ejemplo, "(1 + 23 * 34 + (15 + 10))"), convierta la expresión en una lista de sus componentes. La lista debe incluir cada número, operador y paréntesis como elementos separados. Recorre la expresión carácter por carácter utilizando un bucle for y utiliza condicionales if para manejar cada caso (números, operadores, paréntesis y espacios).
+
+Por ejemplo, dada la expresión "(1 + 23 * 34 + (15 + 10))", la función debe devolver la lista:
+
+["(", "1", "+", "23", "*", "34", "+", "(", "15", "+", "10", ")", ")"]
+def extraer_token(expresion):
+    return [] # Implementar
+    
+# Casos de prueba
+assert extraer_token("3 + 5") == ["3", "+", "5"]
+assert extraer_token("(1 + 2) * 3") == ["(", "1", "+", "2", ")", "*", "3"]
+assert extraer_token("10 / (5 - 3)") == ["10", "/", "(", "5", "-", "3", ")"]
+assert extraer_token("4 * (2 + 3) / 5") == ["4", "*", "(", "2", "+", "3", ")", "/", "5"]
+assert extraer_token("7 - 2 * (3 + 4)") == ["7", "-", "2", "*", "(", "3", "+", "4", ")"]
+assert extraer_token("") == []
+
+print("¡Todos los casos de prueba pasaron!")
+2. Comprobar parentesis
+Enunciado:
+
+Escribe una función en Python que verifique si los paréntesis en una lista de tokens están correctamente balanceados. La lista puede contener números, operadores y paréntesis. Unos paréntesis están balanceados si:
+
+Cada paréntesis de apertura ( tiene un paréntesis de cierre ) correspondiente.
+Los paréntesis de cierre no aparecen antes de haberse abierto.
+La función debe recorrer la lista utilizando un contador que se incremente al encontrar un paréntesis de apertura y se decremente al encontrar uno de cierre. Si en algún momento el contador es negativo, o si al final no es cero, los paréntesis no están balanceados.
+
+Ejemplos:
+
+Para la lista ["(", "1", "+", "2", "+", "(", "3", "", "4", ")", "+", "(", "5", "", "6", ")", ")"], la función debe devolver True (balance correcto).
+Para la lista ["(", "(", "1", "+", "2", ")", "+", "3"], la función debe devolver False (falta un paréntesis de cierre).
+Para la lista ["(", "1", "+", "3", ")", "*", "4", ")"], la función debe devolver False (hay un paréntesis de cierre de más).
+def verificar_parentesis(tokens):
+    pass # ¡Reemplazar con la implementación!
+
+# Casos de prueba
+
+assert verificar_parentesis(["(", "1", "+", "2", "+", "(", "3", "*", "4", ")", "+", "(", "5", "*", "6", ")", ")"]) == True
+assert verificar_parentesis(["(", "(", "1", "+", "2", ")", "+", "3"]) == False
+assert verificar_parentesis(["(", "1", "+", "3", ")", "*", "4", ")"]) == False
+assert verificar_parentesis([]) == True
+assert verificar_parentesis(["(", "(", "(", "1", "+", "2"]) == False
+assert verificar_parentesis([")", "1", "+", "2", ")"]) == False
+
+print("¡Todos los casos de prueba pasaron!")
+¡Todos los casos de prueba pasaron!
+Ejericio 3: Comprobar expresion valida
+Escribe una función en Python que verifique si una lista de tokens que representa una expresión matemática simple está correctamente escrita. La expresión puede contener números, operadores aritméticos (+, -, *, /) y paréntesis, y se considera válida si cumple las siguientes reglas:
+
+Un número por sí solo es una expresión válida.
+Una expresión entre paréntesis es válida si lo que está dentro también es una expresión válida.
+Después de una expresión válida, puede haber un operador (+, -, *, /) seguido de otra expresión válida.
+No puede haber operadores seguidos sin una expresión válida entre ellos.
+La función debe devolver True si la expresión es válida y False si es incorrecta.
+
+Pistas:
+Considere que la funcion tiene parentesis corretamente balanceados ya que tenemos una funcion para verificarlo.
+Ejemplos:
+
+Para la lista ["(", "1", "+", "2", ")", "*", "3"], la función debe devolver True (expresión válida).
+Para la lista ["1", "+", "(", ")"], la función debe devolver False (los paréntesis están vacíos).
+Para la lista ["1", "", "", "2"], la función debe devolver False (dos operadores seguidos no son válidos).
+def es_expresion_valida(lista):
+    pass # ¡Reemplazar con la implementación!
+
+
+# Casos de prueba
+assert es_expresion_valida(["(", "1", "+", "2", ")", "*", "3"]) == True
+assert es_expresion_valida(["1", "+", "(", ")"]) == False
+assert es_expresion_valida(["1", "*", "*", "2"]) == False
+assert es_expresion_valida(["(", "1", "+", "2", ")", "/", "(", "3", "-", "4", ")"]) == True
+assert es_expresion_valida(["(", "1", "+", "(", "2", "*", "3", ")", "-", "4", ")"]) == True
+assert es_expresion_valida(["1", "+", "2", "*", "3", "/", "4"]) == True
+assert es_expresion_valida(["1", "+", "+", "2"]) == False
+assert es_expresion_valida(["(", "1", "+", "2", "*", "3"]) == False
+assert es_expresion_valida(["1", "+", "2", ")", "*", "3"]) == False
+assert es_expresion_valida(["(", "1", "+", "2", ")", "*", "(", "3", "/", "4", ")"]) == True
+
+print("¡Todos los casos de prueba pasaron!")
+Ejercicio 4: Evaluar una expresión:
+Enunciado:
+Escribe una función en Python que evalúe una expresión matemática representada como una lista de tokens. La expresión puede contener números, operadores de suma (+), multiplicación (*), y paréntesis (( y )). La función debe seguir estas reglas:
+
+Los paréntesis se evalúan primero, resolviendo las expresiones más internas antes de continuar.
+Las multiplicaciones (*) tienen prioridad sobre las sumas (+) y se deben resolver antes.
+Las sumas (+) se resuelven después de las multiplicaciones, siguiendo el orden de izquierda a derecha.
+Pistas:
+Puedes crear funciones separadas para:
+
+Evaluar las expresiones dentro de los paréntesis.
+Resolver las multiplicaciones una vez que no queden paréntesis.
+Resolver las sumas una vez que las multiplicaciones estén resueltas.
+Convierte la lista de tokens a una nueva lista a medida que evalúas los paréntesis o los operadores, reemplazando las subexpresiones ya resueltas por su valor.
+
+Pistas adicionales:
+Considere que la lista tiene una expresion bien formada ya que disponemos de una funcion para verificar la misma.
+
+Evaluar paréntesis interiores: Para resolver los paréntesis, recorre la lista de tokens mientras haya paréntesis. Cuando encuentres un paréntesis de apertura "(", registra su posición inicial. Cuando encuentres un paréntesis de cierre ")", registra la posición final. La sublista entre estas posiciones debe pasarse recursivamente a la función evaluar. El resultado debe reemplazar la subexpresión dentro de la lista.
+
+Evaluar multiplicaciones: Una vez que hayas resuelto los paréntesis, ya no quedarán paréntesis en la expresión. Al evaluar las multiplicaciones, siempre habrá un número antes y otro después del operador "*". Simplemente recorre la lista, reemplaza el token "*" y los números adyacentes con su producto.
+
+Evaluar sumas: Al evaluar las sumas, la lista solo contendrá números y el operador "+". El resultado será el primer número, y luego, cada vez que encuentres un "+", suma el siguiente número al resultado. Continúa así avanzando por la lista de dos tokens a la vez (número, operador, número).
+
+Ejemplos:
+Para la lista ["(", "1", "+", "2", ")", "*", "3"], la función debe devolver 9.
+Para la lista ["1", "+", "(", "2", "*", "3", "+", "4", ")", "*", "5"], la función debe devolver 36.
+Para la lista ["(", "5", "*", "6", "+", "7", ")", "*", "(", "8", "+", "9", ")"], la función debe devolver 204.
+def evaluar(tokens):
+    # Paso 1: Resolver los paréntesis primero
+    tokens = resolver_parentesis(tokens)
+    
+    # Paso 2: Resolver las multiplicaciones
+    tokens = resolver_multiplicaciones(tokens)
+    
+    # Paso 3: Resolver las sumas
+    return resolver_sumas(tokens)
+
+def resolver_parentesis(tokens):
+    return tokens # Implementar
+
+def resolver_multiplicaciones(tokens):
+    return tokens # implementar
+
+def resolver_sumas(tokens):
+    return 0 # implementar
+
+# Casos de prueba
+assert evaluar(["(", "1", "+", "2", ")", "*", "3"]) == 9
+assert evaluar(["1", "+", "2", "*", "3"]) == 7
+assert evaluar(["(", "1", "+", "2", ")", "+", "(", "3", "*", "4", ")"]) == 15
+assert evaluar(["10", "+", "(", "5", "*", "3", ")", "+", "2"]) == 27
+assert evaluar(["(", "2", "+", "3", ")", "*", "(", "4", "+", "1", ")"]) == 25
+
+print("¡Todos los casos de prueba pasaron!")
